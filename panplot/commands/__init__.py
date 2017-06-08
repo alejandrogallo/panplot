@@ -186,6 +186,26 @@ class Plot2D(Command):
         )
 
         self.parser.add_argument(
+            "--cols",
+            help="Columns to use",
+            nargs=2,
+            default=None,
+            action="store"
+        )
+
+        self.parser.add_argument(
+            "--lines",
+            help="Whether to connect the dots",
+            action="store_true"
+        )
+
+        self.parser.add_argument(
+            "--points",
+            help="Whether to show the dots",
+            action="store_true"
+        )
+
+        self.parser.add_argument(
             "data",
             help="Data file",
             default=sys.stdin,

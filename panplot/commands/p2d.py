@@ -31,6 +31,9 @@ class P2d(panplot.commands.Plot2D):
         )
 
     def get_gunplot_template(self):
+        columns = "u "+(":".join(self.args.cols)) if self.args.cols is not None else ""
+        linepoints = "with lines" if self.args.lines else ""
+        linepoints = "with linespoints" if self.args.points else ""
         return string.Template("""\
 #! /usr/bin/env gnuplot
 # created by panplot https://github.com/alejandrogallo/panplot
@@ -41,9 +44,9 @@ set xlabel "$xlabel";
 set ylabel "$ylabel";
 set title "$title";
 
-plot "data.txt" u 1:2;
+plot "data.txt" $columns $linepoints;
 
-""").safe_substitute(**vars(self.args))
+""").safe_substitute(linepoints=linepoints, columns=columns,**vars(self.args))
 
     def main(self):
         folder = tempfile.mkdtemp()
