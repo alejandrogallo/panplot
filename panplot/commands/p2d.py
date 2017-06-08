@@ -21,7 +21,7 @@ class P2d(panplot.commands.Plot2D):
         self.parser.add_argument(
             "-o", "--out",
             help="Output scripts",
-            action="store_true"
+            action="store"
         )
 
         self.parser.add_argument(
