@@ -34,7 +34,7 @@ class Command(panplot.commands.Command):
         return m.group(1) if m else None
 
     def get_command_help(self):
-        magic_word = panplot.config.get("scripts-short-help-regex")
+        magic_word = ".*panplot-short-help: *(.*)"
         with open(self.script_path) as fd:
             for line in fd:
                 m = re.match(magic_word, line)
