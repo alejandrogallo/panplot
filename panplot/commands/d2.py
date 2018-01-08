@@ -31,22 +31,42 @@ class Command(panplot.commands.Plot2D):
             action="store_true"
         )
 
-    def get_gunplot_template(self):
+        self.parser.add_argument(
+            "--matplotlib",
+            help="Matplotlib backend",
+            action="store_true"
+        )
+
+    def get_gnuplot_template(self):
         return panplot.templates.get('gnuplot-2d.j2').render(
             args=self.args
         )
 
+    def get_matplotlib_template(self):
+        return panplot.templates.get('matplotlib-2d.j2').render(
+            args=self.args
+        )
+
     def main(self):
+        if not self.args.gnuplot and not self.args.matplotlib:
+            self.args.gnuplot = True
         folder = tempfile.mkdtemp()
         data = os.path.join(folder, "data.txt")
-        script = os.path.join(folder, "script.gnuplot")
         self.logger.debug("Tmp folder = %s " % folder)
         self.logger.debug("Tmp data = %s " % data)
-        self.logger.debug("Tmp script = %s " % script)
         open(data, "w+").write(self.args.data.read())
-        open(script, "w+").write(self.get_gunplot_template())
+        if self.args.gnuplot:
+            script = os.path.join(folder, "script.gnuplot")
+            open(script, "w+").write(self.get_gnuplot_template())
+        elif self.args.matplotlib:
+            script = os.path.join(folder, "script.py")
+            open(script, "w+").write(self.get_matplotlib_template())
+        self.logger.debug("Tmp script = %s " % script)
         if self.args.out:
             shutil.move(folder, self.args.out)
         else:
             os.chdir(folder)
-            subprocess.call(["gnuplot", "-p", script])
+            if self.args.gnuplot:
+                subprocess.call(["gnuplot", "-p", script])
+            elif self.args.matplotlib:
+                subprocess.call([sys.executable, script])
