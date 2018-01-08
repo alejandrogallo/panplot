@@ -4,7 +4,7 @@ import panplot.config
 import subprocess
 
 
-class External(panplot.commands.Command):
+class Command(panplot.commands.Command):
 
     def init(self, path):
         self.script_path = path

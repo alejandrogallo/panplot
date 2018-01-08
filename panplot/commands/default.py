@@ -5,7 +5,7 @@ import panplot.commands
 import logging
 
 
-class Default(panplot.commands.Command):
+class Command(panplot.commands.Command):
 
     def init(self):
 

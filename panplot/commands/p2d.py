@@ -7,7 +7,7 @@ import subprocess
 import panplot.config
 
 
-class P2d(panplot.commands.Plot2D):
+class Command(panplot.commands.Plot2D):
 
     def init(self):
 
