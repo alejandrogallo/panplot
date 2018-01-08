@@ -12,8 +12,8 @@ class Command(panplot.commands.Plot2D):
     def init(self):
 
         self.parser = self.get_subparsers().add_parser(
-            "p2d",
-            help="2d plot"
+            "2d",
+            help="General 2d plot"
         )
 
         panplot.commands.Plot2D.init(self)
