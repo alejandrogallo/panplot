@@ -306,7 +306,7 @@ class Plot2D(Command):
             "--cols",
             help="Columns to use",
             nargs=2,
-            default=None,
+            default=[1,2],
             action="store"
         )
 

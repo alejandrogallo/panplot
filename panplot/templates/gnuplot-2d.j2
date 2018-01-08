@@ -1,0 +1,14 @@
+#! /usr/bin/env gnuplot
+# created by panplot https://github.com/alejandrogallo/panplot
+
+# set terminal unknown;
+
+set xlabel "{{args.xlabel}}";
+set ylabel "{{args.ylabel}}";
+set title "{{args.title}}";
+
+{%if args.lines %}
+plot "data.txt" using {{args.cols | join(':')}} with lines
+{%else%}
+plot "data.txt" using {{args.cols | join(':')}} with linespoints
+{%endif%}

@@ -5,6 +5,7 @@ import string
 import tempfile
 import subprocess
 import panplot.config
+import panplot.templates
 
 
 class Command(panplot.commands.Plot2D):
@@ -31,22 +32,9 @@ class Command(panplot.commands.Plot2D):
         )
 
     def get_gunplot_template(self):
-        columns = "u "+(":".join(self.args.cols)) if self.args.cols is not None else ""
-        linepoints = "with lines" if self.args.lines else ""
-        linepoints = "with linespoints" if self.args.points else ""
-        return string.Template("""\
-#! /usr/bin/env gnuplot
-# created by panplot https://github.com/alejandrogallo/panplot
-
-# set terminal unknown;
-
-set xlabel "$xlabel";
-set ylabel "$ylabel";
-set title "$title";
-
-plot "data.txt" $columns $linepoints;
-
-""").safe_substitute(linepoints=linepoints, columns=columns,**vars(self.args))
+        return panplot.templates.get('gnuplot-2d.j2').render(
+            args=self.args
+        )
 
     def main(self):
         folder = tempfile.mkdtemp()
