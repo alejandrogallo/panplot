@@ -39,6 +39,7 @@ setup(
     url='https://github.com/alejandrogallo/panplot',
     install_requires=[
         "configparser>=3.0.0",
+        "Jinja2==2.10"
     ],
     python_requires='>=3',
     classifiers=[
@@ -97,3 +98,4 @@ setup(
     ),
     platforms=['linux', 'osx'],
 )
+
