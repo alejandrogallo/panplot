@@ -282,14 +282,14 @@ class Plot2D(Command):
     def init(self):
 
         self.parser.add_argument(
-            "--xlabel",
+            "--xlabel", "--xl",
             help="X label",
             default="x",
             action="store"
         )
 
         self.parser.add_argument(
-            "--ylabel",
+            "--ylabel", "--yl",
             help="Y label",
             default="y",
             action="store"
@@ -299,6 +299,14 @@ class Plot2D(Command):
             "--title",
             help="Y label",
             default="",
+            action="store"
+        )
+
+        self.parser.add_argument(
+            "--delimiter", "-d",
+            help="Delimiter between the data points",
+            nargs=1,
+            default=" ",
             action="store"
         )
 

@@ -3,12 +3,20 @@
 
 # set terminal unknown;
 
-set xlabel "{{args.xlabel}}";
-set ylabel "{{args.ylabel}}";
-set title "{{args.title}}";
+set datafile separator "{{args.delimiter}}"
 
-{%if args.lines %}
-plot "data.txt" using {{args.cols | join(':')}} with lines
-{%else%}
-plot "data.txt" using {{args.cols | join(':')}} with linespoints
+set xlabel "{{args.xlabel}}"
+set ylabel "{{args.ylabel}}"
+set title "{{args.title}}"
+
+
+
+{%if args.lines and args.points %}
+{% set linesOrPoints = 'linespoints' %}
+{%elif args.lines%}
+{% set linesOrPoints = 'line' %}
+{%elif args.points%}
+{% set linesOrPoints = 'point' %}
 {%endif%}
+
+plot "data.txt" using {{args.cols | join(':')}} with {{linesOrPoints}}
