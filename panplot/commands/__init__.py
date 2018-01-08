@@ -10,7 +10,7 @@ import panplot.utils
 import panplot.config
 COMMAND_NAMES = [
     "default",
-    "p2d",
+    "d2",
 ]
 
 DEFAULT_PARSER = None

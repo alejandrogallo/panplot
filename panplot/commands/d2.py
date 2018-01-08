@@ -12,7 +12,7 @@ class Command(panplot.commands.Plot2D):
     def init(self):
 
         self.parser = self.get_subparsers().add_parser(
-            "2d",
+            "d2",
             help="General 2d plot"
         )
 
