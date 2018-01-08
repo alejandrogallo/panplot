@@ -1,7 +1,9 @@
 import os
 import re
-import panplot.config
+import argparse
 import subprocess
+import panplot.config
+import panplot.commands
 
 
 class Command(panplot.commands.Command):
@@ -11,33 +13,34 @@ class Command(panplot.commands.Command):
 
         self.parser = self.get_subparsers().add_parser(
             self.get_command_name(),
+            add_help=False,
             help=self.get_command_help()
+        )
+
+        self.parser.add_argument(
+            "-h", "--help",
+            action="store_true"
         )
 
         self.parser.add_argument(
             "args",
             help="Arguments",
-            nargs="*",
+            nargs=argparse.REMAINDER,
             action="store"
         )
 
     def get_command_name(self):
         m = re.match(r"^.*panplot-(.*)$", self.script_path)
-        if not m:
-            return None
-        else:
-            return m.group(1)
+        return m.group(1) if m else None
 
     def get_command_help(self):
-        p = subprocess.Popen(
-            [self.script_path, "-h"],
-            stdout=subprocess.PIPE
-        )
-        h, err = p.communicate()
-        if not h or (not p.returncode == 0):
-            return "No help message available"
-        else:
-            return h.decode("ascii")
+        magic_word = panplot.config.get("scripts-short-help-regex")
+        with open(self.script_path) as fd:
+            for line in fd:
+                m = re.match(magic_word, line)
+                if m:
+                    return m.group(1)
+        return "No help message available"
 
     def export_variables(self):
         """Export environment variables so that external script can access to
@@ -49,5 +52,7 @@ class Command(panplot.commands.Command):
         os.environ["PANPLOT_VERBOSE"] = "-v" if self.args.verbose else ""
 
     def main(self):
+        if self.args.help:
+            self.args.args = ['-h'] + self.args.args
         self.export_variables()
         subprocess.call([self.script_path] + self.args.args)
