@@ -1,18 +1,19 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+# created by panplot https://github.com/alejandrogallo/panplot
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 data = np.loadtxt('data.txt', delimiter="{{args.delimiter}}")
 
-{%if args.lines and args.points %}
-{% set linesOrPoints = 'o-' %}
-{%elif args.lines%}
-{% set linesOrPoints = '-' %}
-{%elif args.points%}
-{% set linesOrPoints = 'o' %}
-{%endif%}
+{%- if args.lines and args.points %}
+{%- set linesOrPoints = 'o-' %}
+{%- elif args.lines%}
+{%- set linesOrPoints = '-' %}
+{%- elif args.points%}
+{%- set linesOrPoints = 'o' %}
+{%- endif %}
 
 plt.xlabel("{{args.xlabel}}")
 plt.ylabel("{{args.ylabel}}")
