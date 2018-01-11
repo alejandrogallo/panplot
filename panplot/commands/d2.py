@@ -38,12 +38,12 @@ class Command(panplot.commands.Plot2D):
         )
 
     def get_gnuplot_template(self):
-        return panplot.templates.get('gnuplot-2d.j2').render(
+        return panplot.templates.get('gnuplot/2d.j2').render(
             args=self.args
         )
 
     def get_matplotlib_template(self):
-        return panplot.templates.get('matplotlib-2d.j2').render(
+        return panplot.templates.get('matplotlib/2d.j2').render(
             args=self.args
         )
 
