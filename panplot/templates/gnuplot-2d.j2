@@ -1,7 +1,21 @@
 #! /usr/bin/env gnuplot
 # created by panplot https://github.com/alejandrogallo/panplot
 
-# set terminal unknown;
+{%- if args.fmt == 'ascii' %}
+set terminal dumb
+{%- elif not args.fmt %}
+#set terminal unknown;
+{%- elif args.fmt == 'pdf' %}
+set terminal pdfcairo
+{%- elif args.fmt == 'gif' %}
+set terminal gif
+{%- elif args.fmt == 'latex' %}
+set terminal latex
+{%- elif args.fmt == 'png' %}
+set terminal png
+{%- elif args.fmt == 'svg' %}
+set terminal svg
+{%- endif%}
 
 set datafile separator "{{args.delimiter}}"
 

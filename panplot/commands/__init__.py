@@ -331,6 +331,12 @@ class Plot2D(Command):
         )
 
         self.parser.add_argument(
+            "--fmt",
+            help="Output format for the plot",
+            action="store"
+        )
+
+        self.parser.add_argument(
             "data",
             help="Data file",
             default=sys.stdin,
