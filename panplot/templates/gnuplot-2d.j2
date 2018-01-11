@@ -32,6 +32,14 @@ set title "{{args.title}}"
 {%- set linesOrPoints = 'line' %}
 {%- elif args.points%}
 {%- set linesOrPoints = 'point' %}
-{%- endif%}
+{%- endif %}
 
-plot "data.txt" using {{args.cols | join(':')}} with {{linesOrPoints}}
+plot \
+{%- for data_file in args.data %}
+    "{{data_file}}" \
+        using {{args.cols | join(':')}} \
+{%- if args.legend | length > loop.index-1 %}
+        title "{{args.legend[loop.index-1]}}" \
+{%- endif %}
+        with {{linesOrPoints}}, \
+{%- endfor %}

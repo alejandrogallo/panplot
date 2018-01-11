@@ -319,6 +319,14 @@ class Plot2D(Command):
         )
 
         self.parser.add_argument(
+            "--legend",
+            help="Legend for the different datasets plotted",
+            nargs="*",
+            default=[],
+            action="store"
+        )
+
+        self.parser.add_argument(
             "--lines",
             help="Whether to connect the dots",
             action="store_true"
@@ -339,8 +347,8 @@ class Plot2D(Command):
         self.parser.add_argument(
             "data",
             help="Data file",
-            default=sys.stdin,
+            default=[sys.stdin],
+            nargs="*",
             type=argparse.FileType("r"),
-            nargs="?",
             action="store"
         )

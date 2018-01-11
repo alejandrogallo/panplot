@@ -5,7 +5,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-data = np.loadtxt('data.txt', delimiter="{{args.delimiter}}")
+data = [
+{%- for data_file in args.data %}
+    np.loadtxt("{{data_file}}", delimiter="{{args.delimiter}}"),
+{%- endfor %}
+]
 
 {%- if args.lines and args.points %}
 {%- set linesOrPoints = 'o-' %}
@@ -18,9 +22,25 @@ data = np.loadtxt('data.txt', delimiter="{{args.delimiter}}")
 plt.xlabel("{{args.xlabel}}")
 plt.ylabel("{{args.ylabel}}")
 plt.title("{{args.title}}")
+
+
+{% for d in args.data %}
 plt.plot(
-    [d[{{args.cols[0]-1}}] for d in data],
-    [d[{{args.cols[1]-1}}] for d in data],
-    "{{linesOrPoints}}"
+    data[{{loop.index-1}}][:,{{args.cols[0]-1}}],
+    data[{{loop.index-1}}][:,{{args.cols[1]-1}}],
+    "{{linesOrPoints}}",
+{%- if args.legend | length > loop.index-1 %}
+    label="{{args.legend[loop.index-1]}}"
+{%- endif %}
 )
+{% endfor %}
+
+{%- if args.legend | length > 0 %}
+plt.legend(
+    # best location possible
+    loc='best'
+)
+{%- endif %}
+
+
 plt.show()

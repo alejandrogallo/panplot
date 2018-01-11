@@ -51,10 +51,17 @@ class Command(panplot.commands.Plot2D):
         if not self.args.gnuplot and not self.args.matplotlib:
             self.args.gnuplot = True
         folder = tempfile.mkdtemp()
-        data = os.path.join(folder, "data.txt")
+        data = [
+            os.path.join(folder, "data_%s.txt" % i )
+            for i in range(len(self.args.data))
+        ]
         self.logger.debug("Tmp folder = %s " % folder)
         self.logger.debug("Tmp data = %s " % data)
-        open(data, "w+").write(self.args.data.read())
+        self.logger.debug(self.args.data)
+        for i in range(len(self.args.data)):
+            with open(data[i], "w+") as fd:
+                fd.write(self.args.data[i].read())
+        self.args.data = list(map(os.path.basename, data))
         if self.args.gnuplot:
             script = os.path.join(folder, "script.gnuplot")
             open(script, "w+").write(self.get_gnuplot_template())
