@@ -31,15 +31,6 @@ class Command(panplot.commands.Command):
             default="INFO"
         )
 
-        self.default_parser.add_argument(
-            "-j", "--cores",
-            help="Number of cores to run some multicore functionality",
-            type=int,
-            default=os.cpu_count(),
-            action="store"
-        )
-
-
     def main(self):
         self.set_args(panplot.commands.get_args())
         log_format = '%(levelname)s:%(name)s:%(message)s'
