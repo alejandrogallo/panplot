@@ -35,6 +35,10 @@ plt.plot(
 )
 {% endfor %}
 
+{%- if args.grid %}
+plt.grid()
+{%- endif %}
+
 {%- if args.legend | length > 0 %}
 plt.legend(
     # best location possible

@@ -339,6 +339,12 @@ class Plot2D(Command):
         )
 
         self.parser.add_argument(
+            "--grid", "-g",
+            help="Show a grid",
+            action="store_true"
+        )
+
+        self.parser.add_argument(
             "--fmt",
             help="Output format for the plot",
             action="store"

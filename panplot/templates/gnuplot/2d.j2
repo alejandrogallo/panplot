@@ -22,6 +22,9 @@ set datafile separator "{{args.delimiter}}"
 set xlabel "{{args.xlabel}}"
 set ylabel "{{args.ylabel}}"
 set title "{{args.title}}"
+{%- if args.grid %}
+set grid
+{%- endif %}
 
 {# Default value for linesOrPoints #}
 {%- set linesOrPoints = 'point' %}
