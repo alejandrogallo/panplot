@@ -313,7 +313,7 @@ class Plot2D(Command):
         self.parser.add_argument(
             "--cols",
             help="Columns to use",
-            nargs=2,
+            nargs="*",
             default=[1,2],
             action="store"
         )
