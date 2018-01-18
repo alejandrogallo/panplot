@@ -55,4 +55,5 @@ class Command(panplot.commands.Command):
         if self.args.help:
             self.args.args = ['-h'] + self.args.args
         self.export_variables()
+        print(self.args.args)
         subprocess.call([self.script_path] + self.args.args)

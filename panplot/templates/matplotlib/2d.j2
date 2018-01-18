@@ -7,7 +7,11 @@ import numpy as np
 
 data = [
 {%- for data_file in args.data %}
-    np.loadtxt("{{data_file}}", delimiter="{{args.delimiter}}"),
+    np.loadtxt(
+        "{{data_file}}",
+        usecols=({{args.cols[0] | int}}-1, {{args.cols[1] | int}}-1),
+        delimiter="{{args.delimiter[loop.index-1]}}"
+    ),
 {%- endfor %}
 ]
 
@@ -26,8 +30,8 @@ plt.title("{{args.title}}")
 
 {% for d in args.data %}
 plt.plot(
-    data[{{loop.index-1}}][:,{{args.cols[0]-1}}],
-    data[{{loop.index-1}}][:,{{args.cols[1]-1}}],
+    data[{{loop.index-1}}][:,0],
+    data[{{loop.index-1}}][:,1],
     "{{linesOrPoints}}",
 {%- if args.legend | length > loop.index-1 %}
     label="{{args.legend[loop.index-1]}}"
