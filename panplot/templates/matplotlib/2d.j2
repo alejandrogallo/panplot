@@ -55,7 +55,9 @@ plt.legend(
 {%- if args.fmt == 'pdf' %}
 plt.savefig('plot.pdf')
 {%- elif not args.fmt %}
+# Use this to save the plot as a figure
 #plt.savefig('plot.pdf')
+plt.show()
 {%- elif args.fmt == 'gif' %}
 plt.savefig('plot.gif')
 {%- elif args.fmt == 'png' %}
@@ -64,4 +66,3 @@ plt.savefig('plot.png')
 plt.savefig('plot.svg')
 {%- endif%}
 
-plt.show()
