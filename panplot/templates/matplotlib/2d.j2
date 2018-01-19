@@ -10,11 +10,12 @@ data = [
     np.loadtxt(
         "{{data_file}}",
         usecols=({{args.cols[0] | int}}-1, {{args.cols[1] | int}}-1),
-        delimiter="{{args.delimiter[loop.index-1]}}"
+        delimiter="{{args.delimiter[0]}}"
     ),
 {%- endfor %}
 ]
 
+{%- set linesOrPoints = 'o' %}
 {%- if args.lines and args.points %}
 {%- set linesOrPoints = 'o-' %}
 {%- elif args.lines%}
