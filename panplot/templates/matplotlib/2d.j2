@@ -52,4 +52,16 @@ plt.legend(
 {%- endif %}
 
 
+{%- if args.fmt == 'pdf' %}
+plt.savefig('plot.pdf')
+{%- elif not args.fmt %}
+#plt.savefig('plot.pdf')
+{%- elif args.fmt == 'gif' %}
+plt.savefig('plot.gif')
+{%- elif args.fmt == 'png' %}
+plt.savefig('plot.png')
+{%- elif args.fmt == 'svg' %}
+plt.savefig('plot.svg')
+{%- endif%}
+
 plt.show()
