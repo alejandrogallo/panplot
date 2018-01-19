@@ -26,13 +26,13 @@ class Command(panplot.commands.Plot2D):
         )
 
         self.parser.add_argument(
-            "--gnuplot",
+            "--gnuplot", "--gp",
             help="Gnuplot backend",
             action="store_true"
         )
 
         self.parser.add_argument(
-            "--matplotlib",
+            "--matplotlib", "--mpl",
             help="Matplotlib backend",
             action="store_true"
         )
