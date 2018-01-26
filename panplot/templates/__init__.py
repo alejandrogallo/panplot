@@ -1,13 +1,19 @@
 import os
+import logging
 import sys
+import panplot.config
 
+logger = logging.getLogger('templates')
 
 def get_dir():
     """Get directory where templates are stored
     :returns: Path to the directory
 
     """
-    return os.path.dirname(__file__)
+    return [
+        os.path.dirname(__file__),
+        panplot.config.get_templates_folder()
+    ]
 
 
 def get(name):
@@ -16,6 +22,11 @@ def get(name):
 
     """
     import jinja2
-    filepath = os.path.join(get_dir(), name)
-    with open(filepath) as fd:
-        return jinja2.Template(fd.read())
+    for d in get_dir():
+        filepath = os.path.join(d, name)
+        if not os.path.exists(filepath):
+            continue
+        with open(filepath) as fd:
+            return jinja2.Template(fd.read())
+    logger.exception('No template {} found'.format(name))
+

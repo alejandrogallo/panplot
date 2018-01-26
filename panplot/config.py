@@ -28,6 +28,12 @@ def get_config_file():
     )
 
 
+def get_templates_folder():
+    return os.path.join(
+        get_config_folder(), "templates"
+    )
+
+
 def get_scripts_folder():
     return os.path.join(
         get_config_folder(), "scripts"
