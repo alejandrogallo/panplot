@@ -89,6 +89,7 @@ setup(
     packages=[
         "panplot",
         "panplot.commands",
+        "panplot.templates",
     ],
     test_suite="panplot.tests",
     entry_points=dict(
