@@ -349,6 +349,22 @@ class Plot2D(Command):
         )
 
         self.parser.add_argument(
+            "--hlines",
+            help="Draw horizontal lines at y values",
+            nargs="*",
+            default=[],
+            action="store"
+        )
+
+        self.parser.add_argument(
+            "--vlines",
+            help="Draw vertical lines at x values",
+            nargs="*",
+            default=[],
+            action="store"
+        )
+
+        self.parser.add_argument(
             "--legend",
             help="Legend for the different datasets plotted",
             nargs="*",

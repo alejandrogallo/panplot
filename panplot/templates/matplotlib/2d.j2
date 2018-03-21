@@ -40,6 +40,14 @@ plt.plot(
 )
 {% endfor %}
 
+{% for d in args.hlines %}
+plt.axhline(y={{d}})
+{% endfor %}
+
+{% for d in args.vlines %}
+plt.axvline(x={{d}})
+{% endfor %}
+
 {%- if args.grid %}
 plt.grid()
 {%- endif %}
