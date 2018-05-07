@@ -1,0 +1,50 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+# created by panplot https://github.com/alejandrogallo/panplot
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+matrix = np.loadtxt(
+    "{{args.data[0]}}",
+    delimiter="{{args.delimiter[0]}}"
+);
+
+plt.xlabel("{{args.xlabel}}")
+plt.ylabel("{{args.ylabel}}")
+plt.title("{{args.title}}")
+
+plt.imshow(matrix)
+
+{% for d in args.hlines %}
+plt.axhline(y={{d}})
+{% endfor %}
+
+{% for d in args.vlines %}
+plt.axvline(x={{d}})
+{% endfor %}
+
+{%- if args.grid %}
+plt.grid()
+{%- endif %}
+
+{%- if args.legend | length > 0 %}
+plt.colorbar()
+{%- endif %}
+
+
+{%- if args.fmt == 'pdf' %}
+plt.savefig('plot.pdf')
+{%- elif not args.fmt %}
+# Use this to save the plot as a figure
+#plt.savefig('plot.pdf')
+plt.show()
+{%- elif args.fmt == 'gif' %}
+plt.savefig('plot.gif')
+{%- elif args.fmt == 'png' %}
+plt.savefig('plot.png')
+{%- elif args.fmt == 'svg' %}
+plt.savefig('plot.svg')
+{%- endif%}
+
+

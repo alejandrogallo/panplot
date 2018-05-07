@@ -11,6 +11,7 @@ import panplot.config
 COMMAND_NAMES = [
     "default",
     "d2",
+    "matrix",
 ]
 
 DEFAULT_PARSER = None
