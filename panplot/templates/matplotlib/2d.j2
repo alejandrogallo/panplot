@@ -6,53 +6,53 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 data = [
-{%- for data_file in args.data %}
+{%- for data_file in data %}
     np.loadtxt(
         "{{data_file}}",
-        usecols=({{args.cols[0] | int}}-1, {{args.cols[1] | int}}-1),
-        delimiter="{{args.delimiter[0]}}"
+        usecols=({{cols[0] | int}}-1, {{cols[1] | int}}-1),
+        delimiter="{{delimiter[0]}}"
     ),
 {%- endfor %}
 ]
 
 {%- set linesOrPoints = 'o' %}
-{%- if args.lines and args.points %}
+{%- if lines and points %}
 {%- set linesOrPoints = 'o-' %}
-{%- elif args.lines%}
+{%- elif lines%}
 {%- set linesOrPoints = '-' %}
-{%- elif args.points%}
+{%- elif points%}
 {%- set linesOrPoints = 'o' %}
 {%- endif %}
 
-plt.xlabel("{{args.xlabel}}")
-plt.ylabel("{{args.ylabel}}")
-plt.title("{{args.title}}")
+plt.xlabel("{{xlabel}}")
+plt.ylabel("{{ylabel}}")
+plt.title("{{title}}")
 
 
-{% for d in args.data %}
+{% for d in data %}
 plt.plot(
     data[{{loop.index-1}}][:,0],
     data[{{loop.index-1}}][:,1],
     "{{linesOrPoints}}",
-{%- if args.legend | length > loop.index-1 %}
-    label="{{args.legend[loop.index-1]}}"
+{%- if legend | length > loop.index-1 %}
+    label="{{legend[loop.index-1]}}"
 {%- endif %}
 )
 {% endfor %}
 
-{% for d in args.hlines %}
+{% for d in hlines %}
 plt.axhline(y={{d}})
 {% endfor %}
 
-{% for d in args.vlines %}
+{% for d in vlines %}
 plt.axvline(x={{d}})
 {% endfor %}
 
-{%- if args.grid %}
+{%- if grid %}
 plt.grid()
 {%- endif %}
 
-{%- if args.legend | length > 0 %}
+{%- if legend | length > 0 %}
 plt.legend(
     # best location possible
     loc='best'
@@ -60,17 +60,17 @@ plt.legend(
 {%- endif %}
 
 
-{%- if args.fmt == 'pdf' %}
+{%- if fmt == 'pdf' %}
 plt.savefig('plot.pdf')
-{%- elif not args.fmt %}
+{%- elif not fmt %}
 # Use this to save the plot as a figure
 #plt.savefig('plot.pdf')
 plt.show()
-{%- elif args.fmt == 'gif' %}
+{%- elif fmt == 'gif' %}
 plt.savefig('plot.gif')
-{%- elif args.fmt == 'png' %}
+{%- elif fmt == 'png' %}
 plt.savefig('plot.png')
-{%- elif args.fmt == 'svg' %}
+{%- elif fmt == 'svg' %}
 plt.savefig('plot.svg')
 {%- endif%}
 

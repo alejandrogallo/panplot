@@ -14,19 +14,12 @@ if "--debug" in sys.argv:
     logger.debug("DEBUG MODE FOR DEVELOPERS ON")
 
 
-import panplot.commands
+import panplot.commands.default
 logger.debug("Imported commands")
 
 
 def main():
-    try:
-        panplot.commands.main()
-    except KeyboardInterrupt:
-        print('Getting you out of here...')
-
-
-if sys.version_info < (3, 2):
-    raise Exception("This program must use python 3.2 or greater")
+    panplot.commands.default.run()
 
 if __name__ == "__main__":
     main()

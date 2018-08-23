@@ -1,48 +1,48 @@
 #! /usr/bin/env gnuplot
 # created by panplot https://github.com/alejandrogallo/panplot
 
-{%- if args.fmt == 'ascii' %}
+{%- if fmt == 'ascii' %}
 set terminal dumb
-{%- elif not args.fmt %}
+{%- elif not fmt %}
 #set terminal unknown;
-{%- elif args.fmt == 'pdf' %}
+{%- elif fmt == 'pdf' %}
 set terminal pdfcairo
-{%- elif args.fmt == 'gif' %}
+{%- elif fmt == 'gif' %}
 set terminal gif
-{%- elif args.fmt == 'latex' %}
+{%- elif fmt == 'latex' %}
 set terminal latex
-{%- elif args.fmt == 'png' %}
+{%- elif fmt == 'png' %}
 set terminal png
-{%- elif args.fmt == 'svg' %}
+{%- elif fmt == 'svg' %}
 set terminal svg
 {%- endif%}
 
-set datafile separator "{{args.delimiter}}"
+set datafile separator "{{delimiter}}"
 
-set xlabel "{{args.xlabel}}"
-set ylabel "{{args.ylabel}}"
-set title "{{args.title}}"
-{%- if args.grid %}
+set xlabel "{{xlabel}}"
+set ylabel "{{ylabel}}"
+set title "{{title}}"
+{%- if grid %}
 set grid
 {%- endif %}
 
 {# Default value for linesOrPoints #}
 {%- set linesOrPoints = 'point' %}
 
-{%- if args.lines and args.points %}
+{%- if lines and points %}
 {%- set linesOrPoints = 'linespoints' %}
-{%- elif args.lines%}
+{%- elif lines%}
 {%- set linesOrPoints = 'line' %}
-{%- elif args.points%}
+{%- elif points%}
 {%- set linesOrPoints = 'point' %}
 {%- endif %}
 
 plot \
-{%- for data_file in args.data %}
+{%- for data_file in data %}
     "{{data_file}}" \
-        using {{args.cols | join(':')}} \
-{%- if args.legend | length > loop.index-1 %}
-        title "{{args.legend[loop.index-1]}}" \
+        using {{cols | join(':')}} \
+{%- if legend | length > loop.index-1 %}
+        title "{{legend[loop.index-1]}}" \
 {%- endif %}
         with {{linesOrPoints}}, \
 {%- endfor %}
